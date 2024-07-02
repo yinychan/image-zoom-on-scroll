@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+	<style>
+		* {
+			padding: 0;
+			margin: 0;
+		}
+		body {
+			max-width: 100vw;
+			min-height:  300vh;
+		}
+		#canvas {
+			max-width: 90vw;
+			height:  90vh;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+
+			position: sticky;
+			top: 5vh;
+			left: 5vw;
+			overflow: hidden;
+		}
+		#canvas img {
+			max-width: 90vw;
+			height:  90vh;
+			object-fit: cover;
+		}
+	</style>
+
+</head>
+<body>
+
+		<div id="canvas">
+			<img src="example.svg" />
+		</div>
+
+		<script>
+			const elementIsVisibleInViewport = (el, partiallyVisible = false) => {
+			  const { top, left, bottom, right } = el.getBoundingClientRect();
+			  const { innerHeight, innerWidth } = window;
+
+			  return partiallyVisible
+			    ? (
+			        (top > 0 && top < (innerHeight * (partiallyVisible || 1))) || 
+			        (bottom > 0 && bottom < innerHeight) || 
+			        (top < 0 && bottom > innerHeight)
+			      )
+			    : (
+			        (top >= 0 && bottom <= innerHeight) || 
+			        (top < 0 && bottom > innerHeight)
+			      );
+			};
+
+			const getElementPercentVisibility = (ele) => {
+			  const { top, bottom } = ele.getBoundingClientRect();
+			  const { innerHeight } = window;
+
+			  let visibility = 0;
+
+			  if(elementIsVisibleInViewport(ele, true)) {
+			    visibility = (bottom < (bottom - top)) ? (bottom / (bottom - top))*100 : 100
+			  }
+
+			  return visibility;
+
+			};
+
+			const scroller = document.body;
+			const visual = scroller.querySelector(':scope img')
+
+			window.addEventListener('scroll', function() {
+				const visibility = getElementPercentVisibility(scroller)
+
+				if(visibility > 0) {
+					zoom = 90 + (100-visibility)
+				}
+
+				visual.style.height = zoom + 'vh'
+			})
+
+		</script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
